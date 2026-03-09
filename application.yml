@@ -22,7 +22,7 @@ spring:
     password: 123456789
   
   jpa:
-    database: mariadb
+    database: mysql
     database-platform: org.hibernate.dialect.MariaDBDialect
     hibernate:
       ddl-auto: create
