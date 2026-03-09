@@ -1,0 +1,2 @@
+jwt:
+  secret: mhpark0605-super-secret-key-for-jwt-123456789
