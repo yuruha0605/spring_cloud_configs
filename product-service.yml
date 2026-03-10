@@ -1,0 +1,6 @@
+spring:
+  kafka:
+    kafka-server: localhost:9092
+    consumer:
+      group-id: product-group
+      auto-offset-reset: earliest
