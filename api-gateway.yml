@@ -1,0 +1,52 @@
+server:
+  port: 8888
+
+spring:
+  cloud:
+    gateway:
+      # cores 처리
+      # 각 service module은 web browser와 직접 통신하지 않으므로 단일진입점인 gateway 담당
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: 
+              - 'http://localhost:3000'
+            allowedMethods: '*'
+            allowedHeaders: '*'
+            exposedHeaders: '*'
+            allowCredentials: true
+      # Eureka Server에 등록된 client를 찾아서 사용자의 url_pattern을 매핑하는 작업
+      routes:
+        - id: user-service
+          predicates:
+            - Path=/user-service/**
+          filters:
+            # 첫번째 접두어를 제거
+            # Browser : http://server.mhpark0605.shop/user-service/users/signIn
+            # Inner   : http://server.mhpark0605.shop/users/signIn
+            - StripPrefix=1
+          uri: lb://user-service
+
+        - id: product-service
+          predicates:
+            - Path=/product-service/**
+          filters:
+            # 첫번째 접두어를 제거
+            # Browser : http://server.mhpark0605.shop/product-service/products/create
+            # Inner   : http://server.mhpark0605.shop/products/create
+            - StripPrefix=1
+          uri: lb://product-service
+
+        - id: order-service
+          predicates:
+            - Path=/order-service/**
+          filters:
+            # 첫번째 접두어를 제거
+            # Browser : http://server.mhpark0605.shop/order-service/orders
+            # Inner   : http://server.mhpark0605.shop/orders
+            - StripPrefix=1
+          uri: lb://order-service
+
+
+jwt:
+  secret: mhpark0605-super-secret-key-for-jwt-123456789
