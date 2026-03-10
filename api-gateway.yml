@@ -50,3 +50,8 @@ spring:
 
 jwt:
   secret: mhpark0605-super-secret-key-for-jwt-123456789
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
